@@ -1,8 +1,8 @@
 .experienceBar {
+    margin-bottom: 3rem;
     display: flex;
     align-items: center;
 }
-
 
 .experienceBar span {
     font-size: 1rem;
