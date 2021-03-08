@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { FiPlayCircle, FiXCircle } from 'react-icons/fi';
 
 import { CountdownContext } from "../contexts/CountdownContext";
 import styles from "../styles/components/Countdown.module.css";
@@ -46,6 +47,7 @@ export function Countdown() {
                     onClick={resetCountdown}
                     >
                     Abandonar ciclo
+                    <FiXCircle size={22} />
                 </button>
                 ) : (
                 <button 
@@ -54,6 +56,7 @@ export function Countdown() {
                     onClick={startCountdown}
                     >
                     Inicar ciclo
+                    <FiPlayCircle size={22} />
                 </button>
                 )}
             </>

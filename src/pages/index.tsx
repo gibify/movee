@@ -1,61 +1,69 @@
+import { useCallback, useRef, useState } from "react";
+import { FiGithub, FiLogIn }  from "react-icons/fi";
+
 import Head from 'next/head';
-import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
-import { ChallengeBox } from '../components/ChallengeBox';
-import { CompleteChallenges } from "../components/CompleteChallenges";
-import { Countdown } from "../components/Countdown";
-import { ExperienceBar } from "../components/ExperienceBar";
-import { Profile } from '../components/Profile';
+import styles from '../styles/pages/Login.module.css';
 
-import styles from '../styles/pages/Home.module.css';
-import { CountdownProvider } from '../contexts/CountdownContext';
-import { ChallengesProvider } from '../contexts/ChallengesContext';
-import React from 'react';
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number; 
-}
 
-export default function Home(props: HomeProps) {
+export default function Login() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [isFocused, setIsFocused] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const handleFocus = useCallback(() => {
+    setIsFocused(true);
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    setIsFocused(true);
+  }, []);
+
+  const { push } = useRouter();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if(username) {
+      push(`/${username}`);
+    }
+  }
+
+
   return (
-    <ChallengesProvider 
-    level={props.level}
-    currentExperience={props.currentExperience}
-    challengesCompleted={props.challengesCompleted}
-    >
-      <div className={styles.container}>
-        <Head>
-        <title>Home | Move</title>
-        </Head>
+    <div className={styles.container}>
+      <Head>
+        <title> Login | Move ...</title>
+      </Head>
 
-        <ExperienceBar />
+      <div className={styles.content}>
         
-        <CountdownProvider>
-          <section>
-            <div >
-              <Profile />
-              <CompleteChallenges />
-              <Countdown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
-    </div>
-  </ChallengesProvider>
-  )
-}
+        <img src="/logo-text.svg" alt=""/>
+        <strong>Bem-Vindo</strong>
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
- const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
- return {
-   props: {
-    level: Number(level),
-    currentExperience: Number(currentExperience), 
-    challengesCompleted: Number(challengesCompleted)
-   },
- }
+        <div className={styles.title}>
+          <FiGithub size={32}/>
+          <span>Faça login com o seu GitHub para iniciar a sessão</span>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <input 
+          type="text"
+          placeholder="Digite seu username"
+          onChange={(event) => setUsername(event.target.value)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={inputRef}
+          />
+          <button type="submit">
+          <FiLogIn />
+          </button>
+        </form>
+
+      </div>
+    </div>
+    
+  )
 }
