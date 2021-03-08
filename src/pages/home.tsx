@@ -36,7 +36,7 @@ export default function Home(props: HomeProps) {
     >
       <div className={styles.container}>
         <Head>
-        <title>{user.name} | Move ...</title>
+        <title>{user.name} | Movee</title>
         </Head>
 
         <Sidebar />

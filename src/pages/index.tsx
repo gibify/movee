@@ -35,7 +35,7 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <Head>
-        <title> Login | Move ...</title>
+        <title> Login | Movee</title>
       </Head>
 
       <div className={styles.content}>
